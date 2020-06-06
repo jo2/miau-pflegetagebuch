@@ -32,7 +32,7 @@ public class CompleteMealHandler implements RequestHandler {
         System.out.println(slot.getName());
 
         slot.getResolutions().getResolutionsPerAuthority().forEach(resolution -> {
-            System.out.println(resolution.getValues());
+            System.out.println(resolution.getValues().get(0).getValue().getName());
         });
 
         System.out.println(helper.getSlotValue("mealType"));
