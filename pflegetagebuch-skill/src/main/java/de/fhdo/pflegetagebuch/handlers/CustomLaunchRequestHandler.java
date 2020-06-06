@@ -18,7 +18,7 @@ public class CustomLaunchRequestHandler implements LaunchRequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input, LaunchRequest launchRequest) {
         return input.getResponseBuilder()
-                .withSpeech("This is a simple Alexa Skill example")
+                .withReprompt("Willkommen bei Pflegetagebuch!")
                 .build();
     }
 }
