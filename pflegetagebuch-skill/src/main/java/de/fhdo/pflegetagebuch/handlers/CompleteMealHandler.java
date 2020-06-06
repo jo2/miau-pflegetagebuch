@@ -3,6 +3,7 @@ package de.fhdo.pflegetagebuch.handlers;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
+import com.amazon.ask.model.Slot;
 import com.amazon.ask.request.RequestHelper;
 import de.fhdo.pflegetagebuch.domain.HealthStatus;
 import de.fhdo.pflegetagebuch.domain.MealTask;
@@ -25,6 +26,14 @@ public class CompleteMealHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
+
+        Slot slot = helper.getSlot("mealType").get();
+        System.out.println(slot.getValue());
+        System.out.println(slot.getName());
+
+        slot.getResolutions().getResolutionsPerAuthority().forEach(resolution -> {
+            System.out.println(resolution.getValues());
+        });
 
         System.out.println(helper.getSlotValue("mealType"));
         System.out.println(helper.getSlotValue("mealDate"));
