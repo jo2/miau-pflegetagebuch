@@ -1,0 +1,436 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "pflege tagebuch",
+      "modelConfiguration": {
+        "fallbackIntentSensitivity": {
+          "level": "LOW"
+        }
+      },
+      "intents": [
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "BeleidigeMichIntent",
+          "slots": [],
+          "samples": [
+            "beleidige mich"
+          ]
+        },
+        {
+          "name": "CompleteTaskIntent",
+          "slots": [
+            {
+              "name": "task",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "healthStatus",
+              "type": "healthStatus",
+              "samples": [
+                "{healthStatus}",
+                "dem pflegebedürftigen ging es {healthStatus} "
+              ]
+            },
+            {
+              "name": "supportNeeded",
+              "type": "supportNeeded",
+              "samples": [
+                "{supportNeeded}",
+                "der pflegebedürftige benötigte {supportNeeded} unterstützung"
+              ]
+            }
+          ],
+          "samples": [
+            "trage im pflegetagebuch ein {task} wurde abgeschlossen"
+          ]
+        },
+        {
+          "name": "CompleteMealIntent",
+          "slots": [
+            {
+              "name": "mealDate",
+              "type": "AMAZON.DATE"
+            },
+            {
+              "name": "mealTime",
+              "type": "AMAZON.TIME"
+            },
+            {
+              "name": "healthStatus",
+              "type": "healthStatus",
+              "samples": [
+                "{healthStatus}",
+                "dem pflegebedürftigen ging es {healthStatus} "
+              ]
+            },
+            {
+              "name": "supportNeeded",
+              "type": "supportNeeded",
+              "samples": [
+                "{supportNeeded}",
+                "der pflegebedürftige benötigte {supportNeeded} unterstützung"
+              ]
+            },
+            {
+              "name": "mealType",
+              "type": "mealType"
+            },
+            {
+              "name": "amountEaten",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "der pflegebedürftige hat {amountEaten} gegessen",
+                "{amountEaten}"
+              ]
+            },
+            {
+              "name": "dish",
+              "type": "dishes",
+              "samples": [
+                "{dish}",
+                "der pflegebedürftige hat {dish} gegessen"
+              ]
+            }
+          ],
+          "samples": [
+            "trage im pflegetagebuch ein {mealType} wurde eingenommen",
+            "trage im pflegetagebuch ein essen {mealTime} wurde eingenommen",
+            "trage im pflegetagebuch ein essen {mealDate} {mealTime} wurde eingenommen"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "healthStatus",
+          "values": [
+            {
+              "name": {
+                "value": "bad",
+                "synonyms": [
+                  "gut"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "medium",
+                "synonyms": [
+                  "mittel"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "good",
+                "synonyms": [
+                  "schlecht"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "supportNeeded",
+          "values": [
+            {
+              "name": {
+                "value": "much",
+                "synonyms": [
+                  "viel"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "medium",
+                "synonyms": [
+                  "mittel"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "little",
+                "synonyms": [
+                  "wenig"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "mealType",
+          "values": [
+            {
+              "name": {
+                "value": "dinner",
+                "synonyms": [
+                  "Abendessen"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "snack",
+                "synonyms": [
+                  "Kaffee"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "lunch",
+                "synonyms": [
+                  "Mittagessen"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "breakfast",
+                "synonyms": [
+                  "Frühstück"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "dishes",
+          "values": [
+            {
+              "name": {
+                "value": "fish",
+                "synonyms": [
+                  "Fisch"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "meat",
+                "synonyms": [
+                  "Rindfleisch",
+                  "Schweineflisch",
+                  "Hänchen",
+                  "Fleisch"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "noodles",
+                "synonyms": [
+                  "Spaghetti",
+                  "Nudeln"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "soup",
+                "synonyms": [
+                  "Suppe"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "bread",
+                "synonyms": [
+                  "Brötchen",
+                  "Brot"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "CompleteTaskIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "task",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "healthStatus",
+              "type": "healthStatus",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1573490022152.161351317314"
+              }
+            },
+            {
+              "name": "supportNeeded",
+              "type": "supportNeeded",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1573490022152.159853998363"
+              }
+            }
+          ]
+        },
+        {
+          "name": "CompleteMealIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "mealDate",
+              "type": "AMAZON.DATE",
+              "confirmationRequired": false,
+              "elicitationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "mealTime",
+              "type": "AMAZON.TIME",
+              "confirmationRequired": false,
+              "elicitationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "healthStatus",
+              "type": "healthStatus",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.585605568023.162405369553"
+              }
+            },
+            {
+              "name": "supportNeeded",
+              "type": "supportNeeded",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.585605568023.1117094708968"
+              }
+            },
+            {
+              "name": "mealType",
+              "type": "mealType",
+              "confirmationRequired": false,
+              "elicitationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "amountEaten",
+              "type": "AMAZON.NUMBER",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.585605568023.1445160022075"
+              }
+            },
+            {
+              "name": "dish",
+              "type": "dishes",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.585605568023.1413356327064"
+              }
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.1573490022152.161351317314",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "wie ging es dem pflegebedürftigen dabei?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1573490022152.159853998363",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "wie viel unterstützung benötigte der pflegebedürftige?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.585605568023.1112699472326",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "an welchem tag fand das essen statt?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.585605568023.162405369553",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "wie ging es dem pflegebedürftigen dabei?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.585605568023.1117094708968",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "wie viel unterstützung benötigte der pflegebedürftige?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.585605568023.1445160022075",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "wie viel hat der pflegebedürftige gegessen?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.585605568023.1413356327064",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "was hat der pflegebedürftige gegessen?"
+          }
+        ]
+      }
+    ]
+  }
+}
