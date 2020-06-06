@@ -63,6 +63,7 @@ public class CompleteMealHandler implements RequestHandler {
         taskHandlerService.completeTask(mealTask);
 
         return handlerInput.getResponseBuilder()
+                .withSpeech("Der Task " + mealTask.getName() + " wurde gespeichert.")
                 .withReprompt("Der Task " + mealTask.getName() + " wurde gespeichert.")
                 .build();
     }

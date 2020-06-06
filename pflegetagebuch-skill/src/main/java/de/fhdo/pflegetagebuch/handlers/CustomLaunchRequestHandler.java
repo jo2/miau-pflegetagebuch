@@ -18,6 +18,7 @@ public class CustomLaunchRequestHandler implements LaunchRequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input, LaunchRequest launchRequest) {
         return input.getResponseBuilder()
+                .withSpeech("Willkommen bei Pflegetagebuch!")
                 .withReprompt("Willkommen bei Pflegetagebuch!")
                 .build();
     }
