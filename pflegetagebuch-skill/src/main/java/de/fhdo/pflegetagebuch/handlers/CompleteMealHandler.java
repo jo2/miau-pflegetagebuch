@@ -26,9 +26,32 @@ public class CompleteMealHandler implements RequestHandler {
     public Optional<Response> handle(HandlerInput handlerInput) {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
 
+        System.out.println(helper.getSlotValue("mealType"));
+        System.out.println(helper.getSlotValue("mealDate"));
+        System.out.println(helper.getSlotValue("mealTime"));
+        System.out.println(helper.getSlotValue("supportNeeded"));
+        System.out.println(helper.getSlotValue("healthStatus"));
+        System.out.println(helper.getSlotValue("dish"));
+        System.out.println(helper.getSlotValue("amountEaten"));
+
         MealTask mealTask = new MealTask();
         // TODO name: name = (mealType | mealTime) mealDate
-        mealTask.setName("test");
+        StringBuilder nameBuilder = new StringBuilder();
+        if (helper.getSlotValue("mealType").isPresent()) {
+            nameBuilder.append(helper.getSlotValue("mealType").get());
+            mealTask.setMealType(MealType.valueOf(helper.getSlotValue("mealType").get()));
+        } else if (helper.getSlotValue("mealTime").isPresent()) {
+            nameBuilder.append(helper.getSlotValue("mealTime").get());
+        }
+        nameBuilder.append(" ");
+        if (helper.getSlotValue("mealDate").isPresent()) {
+            nameBuilder.append(helper.getSlotValue("mealDate").get());
+        } else {
+            nameBuilder.append(LocalDate.now());
+            mealTask.setMealDate(LocalDate.now());
+        }
+
+        mealTask.setName(nameBuilder.toString());
         mealTask.setAmountEaten(Double.parseDouble(helper.getSlotValue("amountEaten").get()));
         mealTask.setMeal(helper.getSlotValue("dish").get());
         mealTask.setMealDate(LocalDate.now());
