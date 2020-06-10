@@ -36,7 +36,6 @@ public class CompleteMealHandler implements RequestHandler {
         StringBuilder nameBuilder = new StringBuilder();
         if (helper.getSlotValue("mealType").isPresent()) {
             nameBuilder.append(helper.getSlotValue("mealType").get());
-            mealTask.setMealType(MealType.valueOf(helper.getSlotValue("mealType").get()));
         } else if (helper.getSlotValue("mealTime").isPresent()) {
             nameBuilder.append(helper.getSlotValue("mealTime").get());
         }
@@ -67,7 +66,7 @@ public class CompleteMealHandler implements RequestHandler {
     private String getContentFromSlot(String slotName, RequestHelper helper) {
         Slot slot = helper.getSlot(slotName).get();
         for (Resolution resolution : slot.getResolutions().getResolutionsPerAuthority()) {
-            if (!resolution.getValues().get(0).getValue().getName().equals("mealType")) {
+            if (!resolution.getValues().get(0).getValue().getName().equals(slotName)) {
                 return resolution.getValues().get(0).getValue().getName().toUpperCase();
             }
         }
