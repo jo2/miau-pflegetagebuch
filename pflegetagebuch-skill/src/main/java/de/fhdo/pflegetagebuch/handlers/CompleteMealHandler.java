@@ -65,7 +65,7 @@ public class CompleteMealHandler implements RequestHandler {
     }
 
     private String getContentFromSlot(String slotName, RequestHelper helper) {
-        Slot slot = helper.getSlot("mealType").get();
+        Slot slot = helper.getSlot(slotName).get();
         for (Resolution resolution : slot.getResolutions().getResolutionsPerAuthority()) {
             if (!resolution.getValues().get(0).getValue().getName().equals("mealType")) {
                 return resolution.getValues().get(0).getValue().getName().toUpperCase();
