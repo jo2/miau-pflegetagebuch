@@ -5,6 +5,7 @@ import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.model.Slot;
 import com.amazon.ask.request.RequestHelper;
+import de.fhdo.pflegetagebuch.domain.Task;
 
 import java.util.Optional;
 
@@ -19,7 +20,8 @@ public class CompleteTaskHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
-        Slot slot = helper.getSlot("mealType").get();
+        Task task = new Task();
+        Slot slot = helper.getSlot("task").get();
         return handlerInput.getResponseBuilder()
                 .withSpeech("Du Sohn deiner Mutter")
                 .build();

@@ -1,16 +1,16 @@
 package de.fhdo.pflegetagebuch.domain;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @DynamoDBTable(tableName = "Task")
 public class MealTask extends Task {
     private String meal;
     private double amountEaten;
-    private String mealType;
-    private LocalDate mealDate;
+    private MealType mealType;
+    private LocalDateTime mealDate;
 
     @DynamoDBAttribute(attributeName = "meal")
     public String getMeal() {
@@ -31,20 +31,22 @@ public class MealTask extends Task {
     }
 
     @DynamoDBAttribute(attributeName = "mealType")
+    @DynamoDBTypeConvertedEnum
     public MealType getMealType() {
-        return MealType.valueOf(mealType);
+        return mealType;
     }
 
     public void setMealType(MealType mealType) {
-        this.mealType = mealType.toString();
+        this.mealType = mealType;
     }
 
+    @DynamoDBTypeConverted( converter = LocalDateTimeConverter.class )
     @DynamoDBAttribute(attributeName = "mealDate")
-    public LocalDate getMealDate() {
+    public LocalDateTime getMealDate() {
         return mealDate;
     }
 
-    public void setMealDate(LocalDate mealDate) {
+    public void setMealDate(LocalDateTime mealDate) {
         this.mealDate = mealDate;
     }
 

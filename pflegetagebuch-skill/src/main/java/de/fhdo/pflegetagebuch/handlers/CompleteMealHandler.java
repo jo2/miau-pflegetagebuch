@@ -45,13 +45,13 @@ public class CompleteMealHandler implements RequestHandler {
             nameBuilder.append(helper.getSlotValue("mealDate").get());
         } else {
             nameBuilder.append(LocalDate.now());
-            mealTask.setMealDate(LocalDate.now());
+            mealTask.setMealDate(LocalDateTime.now());
         }
 
         mealTask.setName(nameBuilder.toString());
         mealTask.setAmountEaten(Double.parseDouble(helper.getSlotValue("amountEaten").get()));
         mealTask.setMeal(helper.getSlotValue("dish").get());
-        mealTask.setMealDate(LocalDate.now());
+        mealTask.setMealDate(LocalDateTime.now());
         mealTask.setCompletionDate(LocalDateTime.now());
         System.out.println(mealTask.toString());
 
