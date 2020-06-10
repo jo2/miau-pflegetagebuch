@@ -47,4 +47,19 @@ public class MealTask extends Task {
     public void setMealDate(LocalDate mealDate) {
         this.mealDate = mealDate;
     }
+
+    @Override
+    public String toString() {
+        return "MealTask{" +
+                "id=" + id +
+                ", name='" + name +
+                ", completionDate=" + completionDate +
+                ", supportNeeded=" + supportNeeded +
+                ", healthStatus=" + healthStatus +
+                ", meal='" + meal +
+                ", amountEaten=" + amountEaten +
+                ", mealType=" + mealType +
+                ", mealDate=" + mealDate +
+                '}';
+    }
 }

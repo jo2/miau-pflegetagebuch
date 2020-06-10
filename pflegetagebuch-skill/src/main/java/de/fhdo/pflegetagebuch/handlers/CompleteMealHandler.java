@@ -4,6 +4,7 @@ import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.model.Slot;
+import com.amazon.ask.model.slu.entityresolution.Resolution;
 import com.amazon.ask.request.RequestHelper;
 import de.fhdo.pflegetagebuch.domain.HealthStatus;
 import de.fhdo.pflegetagebuch.domain.MealTask;
@@ -27,24 +28,11 @@ public class CompleteMealHandler implements RequestHandler {
     public Optional<Response> handle(HandlerInput handlerInput) {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
 
-        Slot slot = helper.getSlot("mealType").get();
-        System.out.println(slot.getValue());
-        System.out.println(slot.getName());
-
-        slot.getResolutions().getResolutionsPerAuthority().forEach(resolution -> {
-            System.out.println(resolution.getValues().get(0).getValue().getName());
-        });
-
-        System.out.println(helper.getSlotValue("mealType"));
-        System.out.println(helper.getSlotValue("mealDate"));
-        System.out.println(helper.getSlotValue("mealTime"));
-        System.out.println(helper.getSlotValue("supportNeeded"));
-        System.out.println(helper.getSlotValue("healthStatus"));
-        System.out.println(helper.getSlotValue("dish"));
-        System.out.println(helper.getSlotValue("amountEaten"));
-
         MealTask mealTask = new MealTask();
-        // TODO name: name = (mealType | mealTime) mealDate
+        mealTask.setMealType(MealType.valueOf(getContentFromSlot("mealType", helper)));
+        mealTask.setSupportNeeded(SupportNeeded.valueOf(getContentFromSlot("supportNeeded", helper)));
+        mealTask.setHealthStatus(HealthStatus.valueOf(getContentFromSlot("healthStatus", helper)));
+
         StringBuilder nameBuilder = new StringBuilder();
         if (helper.getSlotValue("mealType").isPresent()) {
             nameBuilder.append(helper.getSlotValue("mealType").get());
@@ -64,10 +52,9 @@ public class CompleteMealHandler implements RequestHandler {
         mealTask.setAmountEaten(Double.parseDouble(helper.getSlotValue("amountEaten").get()));
         mealTask.setMeal(helper.getSlotValue("dish").get());
         mealTask.setMealDate(LocalDate.now());
-        mealTask.setMealType(MealType.BREAKFAST);
         mealTask.setCompletionDate(LocalDateTime.now());
-        mealTask.setHealthStatus(HealthStatus.valueOf(helper.getSlotValue("healthStatus").get()));
-        mealTask.setSupportNeeded(SupportNeeded.valueOf(helper.getSlotValue("supportNeeded").get()));
+        System.out.println(mealTask.toString());
+
         TaskHandlerService taskHandlerService = new TaskHandlerService();
         taskHandlerService.completeTask(mealTask);
 
@@ -75,5 +62,15 @@ public class CompleteMealHandler implements RequestHandler {
                 .withSpeech("Der Task " + mealTask.getName() + " wurde gespeichert.")
                 .withReprompt("Der Task " + mealTask.getName() + " wurde gespeichert.")
                 .build();
+    }
+
+    private String getContentFromSlot(String slotName, RequestHelper helper) {
+        Slot slot = helper.getSlot("mealType").get();
+        for (Resolution resolution : slot.getResolutions().getResolutionsPerAuthority()) {
+            if (!resolution.getValues().get(0).getValue().getName().equals("mealType")) {
+                return resolution.getValues().get(0).getValue().getName().toUpperCase();
+            }
+        }
+        return null;
     }
 }
