@@ -12,7 +12,7 @@ public class MealTask extends Task {
     private MealType mealType;
     private LocalDate mealDate;
 
-    @DynamoDBAttribute(attributeName = "name")
+    @DynamoDBAttribute(attributeName = "meal")
     public String getMeal() {
         return meal;
     }

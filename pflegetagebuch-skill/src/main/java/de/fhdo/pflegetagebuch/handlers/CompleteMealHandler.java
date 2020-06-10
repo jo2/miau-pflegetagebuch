@@ -11,6 +11,7 @@ import de.fhdo.pflegetagebuch.domain.MealTask;
 import de.fhdo.pflegetagebuch.domain.MealType;
 import de.fhdo.pflegetagebuch.domain.SupportNeeded;
 import de.fhdo.pflegetagebuch.services.TaskHandlerService;
+import de.fhdo.pflegetagebuch.util.Util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,9 +30,9 @@ public class CompleteMealHandler implements RequestHandler {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
 
         MealTask mealTask = new MealTask();
-        mealTask.setMealType(MealType.valueOf(getContentFromSlot("mealType", helper)));
-        mealTask.setSupportNeeded(SupportNeeded.valueOf(getContentFromSlot("supportNeeded", helper)));
-        mealTask.setHealthStatus(HealthStatus.valueOf(getContentFromSlot("healthStatus", helper)));
+        mealTask.setMealType(MealType.valueOf(Util.getContentFromSlot("mealType", helper)));
+        mealTask.setSupportNeeded(SupportNeeded.valueOf(Util.getContentFromSlot("supportNeeded", helper)));
+        mealTask.setHealthStatus(HealthStatus.valueOf(Util.getContentFromSlot("healthStatus", helper)));
 
         StringBuilder nameBuilder = new StringBuilder();
         if (helper.getSlotValue("mealType").isPresent()) {
@@ -63,13 +64,5 @@ public class CompleteMealHandler implements RequestHandler {
                 .build();
     }
 
-    private String getContentFromSlot(String slotName, RequestHelper helper) {
-        Slot slot = helper.getSlot(slotName).get();
-        for (Resolution resolution : slot.getResolutions().getResolutionsPerAuthority()) {
-            if (!resolution.getValues().get(0).getValue().getName().equals(slotName)) {
-                return resolution.getValues().get(0).getValue().getName().toUpperCase();
-            }
-        }
-        return null;
-    }
+
 }
