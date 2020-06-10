@@ -5,7 +5,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@DynamoDBTable(tableName = "Task")
+@DynamoDBTable(tableName = "Tasks")
 public class MealTask extends Task {
     private String meal;
     private double amountEaten;
