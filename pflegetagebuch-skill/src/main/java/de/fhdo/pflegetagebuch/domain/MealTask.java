@@ -52,11 +52,11 @@ public class MealTask extends Task {
     public String toString() {
         return "MealTask{" +
                 "id=" + id +
-                ", name='" + name +
+                ", name=" + name +
                 ", completionDate=" + completionDate +
                 ", supportNeeded=" + supportNeeded +
                 ", healthStatus=" + healthStatus +
-                ", meal='" + meal +
+                ", meal=" + meal +
                 ", amountEaten=" + amountEaten +
                 ", mealType=" + mealType +
                 ", mealDate=" + mealDate +
