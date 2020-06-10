@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class MealTask extends Task {
     private String meal;
     private double amountEaten;
-    private MealType mealType;
+    private String mealType;
     private LocalDate mealDate;
 
     @DynamoDBAttribute(attributeName = "meal")
@@ -32,11 +32,11 @@ public class MealTask extends Task {
 
     @DynamoDBAttribute(attributeName = "mealType")
     public MealType getMealType() {
-        return mealType;
+        return MealType.valueOf(mealType);
     }
 
     public void setMealType(MealType mealType) {
-        this.mealType = mealType;
+        this.mealType = mealType.toString();
     }
 
     @DynamoDBAttribute(attributeName = "mealDate")
