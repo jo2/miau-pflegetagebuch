@@ -46,7 +46,13 @@ public class TaskHandlerService {
     public List<Task> getNextTasks() {
         DynamoDBScanExpression query = new DynamoDBScanExpression();
         List<Task> todos = getClient().scan(Task.class, query);
-        todos.sort(Comparator.comparing(Task::getDueDate));
+        todos.sort((task, t1) -> {
+            if (task.getDueDate() != null && t1.getDueDate() != null) {
+                return task.getDueDate().compareTo(t1.getDueDate());
+            } else {
+                return task.getName().compareToIgnoreCase(t1.getName());
+            }
+        });
         todos = todos.subList(0, 5);
         return todos;
     }
