@@ -31,10 +31,11 @@ public class TaskHandlerService {
 
     public List<Task> getProtocolForDay(LocalDate date) {
         Map<String, AttributeValue> valueMap = new HashMap<>();
-        valueMap.put(":val1", new AttributeValue().withS(date.toString()));
+        valueMap.put(":val1", new AttributeValue().withS(date.atStartOfDay().toString()));
+        valueMap.put(":val2", new AttributeValue().withS(date.plusDays(1).atStartOfDay().toString()));
 
         DynamoDBScanExpression query = new DynamoDBScanExpression()
-                .withFilterExpression("completionDate = :val1")
+                .withFilterExpression("completionDate BETWEEN :val1 AND :val2")
                 .withExpressionAttributeValues(valueMap);
 
         List<Task> protocol = getClient().scan(Task.class, query);
