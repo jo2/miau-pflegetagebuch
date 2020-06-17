@@ -10,6 +10,7 @@ import de.fhdo.pflegetagebuch.domain.Task;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TaskHandlerService {
 
@@ -43,7 +44,7 @@ public class TaskHandlerService {
     public List<Task> getNextTasks() {
         DynamoDBScanExpression query = new DynamoDBScanExpression();
         List<Task> todos = new ArrayList<>(getClient().scan(Task.class, query));
-        todos.sort((task, t1) -> {
+        todos.stream().filter(task -> task.getCompletionDate() != null).collect(Collectors.toList()).sort((task, t1) -> {
             if (task.getDueDate() != null && t1.getDueDate() != null) {
                 return task.getDueDate().compareTo(t1.getDueDate());
             } else {
