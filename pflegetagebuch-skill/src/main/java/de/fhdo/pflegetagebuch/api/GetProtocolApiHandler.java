@@ -22,8 +22,7 @@ public class GetProtocolApiHandler implements RequestStreamHandler {
         TaskHandlerService taskHandlerService = new TaskHandlerService();
 
         JSONArray protocol = new JSONArray();
-        protocol.addAll(taskHandlerService.getProtocolForDay(LocalDate.now()));
-
+        taskHandlerService.getProtocolForDay(LocalDate.now()).forEach(task -> protocol.add(task.getName()));
 
         JSONObject responseBody = new JSONObject();
         responseBody.put("protocol", protocol);
