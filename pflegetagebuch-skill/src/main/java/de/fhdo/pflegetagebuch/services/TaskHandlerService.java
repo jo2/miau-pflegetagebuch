@@ -4,10 +4,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import de.fhdo.pflegetagebuch.domain.Task;
 
@@ -18,7 +15,7 @@ import java.util.Map;
 
 public class TaskHandlerService {
 
-    private DynamoDBMapper getCLient() {
+    private DynamoDBMapper getClient() {
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
                 .withRegion(Regions.US_EAST_1)
                 .build();
@@ -28,7 +25,7 @@ public class TaskHandlerService {
     }
 
     public void completeTask(Task task) {
-        getCLient().save(task);
+        getClient().save(task);
     }
 
     public List<Task> getProtocolForDay(LocalDate date) {
@@ -39,8 +36,13 @@ public class TaskHandlerService {
                 .withFilterExpression("completionDate = :val1")
                 .withExpressionAttributeValues(valueMap);
 
-        List<Task> protocol = getCLient().scan(Task.class, query);
+        List<Task> protocol = getClient().scan(Task.class, query);
         protocol.forEach(System.out::println);
         return protocol;
+    }
+
+    public List<Task> getNextTasks() {
+        DynamoDBScanExpression query = new DynamoDBScanExpression();
+        List<Task> todos = getClient().scan(Task.class, query).sort((task, t1) -> );
     }
 }

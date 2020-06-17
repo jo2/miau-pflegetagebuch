@@ -9,10 +9,7 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
-import de.fhdo.pflegetagebuch.handlers.BeleidigeMichHandler;
-import de.fhdo.pflegetagebuch.handlers.CompleteMealHandler;
-import de.fhdo.pflegetagebuch.handlers.CompleteTaskHandler;
-import de.fhdo.pflegetagebuch.handlers.CustomLaunchRequestHandler;
+import de.fhdo.pflegetagebuch.handlers.*;
 
 public class SimpleAlexaSkillStreamHandler extends SkillStreamHandler {
 
@@ -21,6 +18,8 @@ public class SimpleAlexaSkillStreamHandler extends SkillStreamHandler {
                 .addRequestHandler(new BeleidigeMichHandler())
                 .addRequestHandler(new CompleteMealHandler())
                 .addRequestHandler(new CompleteTaskHandler())
+                .addRequestHandler(new CreateTaskHandler())
+                .addRequestHandler(new GetNextTasksHandler())
                 .addRequestHandler(new CustomLaunchRequestHandler())
                 .build());
 
