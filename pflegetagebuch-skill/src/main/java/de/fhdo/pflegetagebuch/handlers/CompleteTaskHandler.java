@@ -5,12 +5,16 @@ import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.request.RequestHelper;
 import de.fhdo.pflegetagebuch.domain.HealthStatus;
+import de.fhdo.pflegetagebuch.domain.Priority;
 import de.fhdo.pflegetagebuch.domain.SupportNeeded;
 import de.fhdo.pflegetagebuch.domain.Task;
 import de.fhdo.pflegetagebuch.services.TaskHandlerService;
 import de.fhdo.pflegetagebuch.util.Util;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
@@ -24,10 +28,15 @@ public class CompleteTaskHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
-        Task task = new Task();
-        
         String taskName = Util.getContentFromSlot("task", helper);
-        String healthStatusValue = Util.getContentFromSlot("healtStatus", helper);
+
+        TaskHandlerService taskHandlerService = new TaskHandlerService();
+        Task task = taskHandlerService.getTaskByName(taskName);
+        if (task == null) {
+            task = new Task();
+        }
+
+        String healthStatusValue = Util.getContentFromSlot("healthStatus", helper);
         HealthStatus healthStatus = HealthStatus.valueOf(healthStatusValue);
         String supportNeededValue = Util.getContentFromSlot("supportNeeded", helper);
         SupportNeeded supportNeeded = SupportNeeded.valueOf(supportNeededValue);
@@ -35,7 +44,7 @@ public class CompleteTaskHandler implements RequestHandler {
         task.setHealthStatus(healthStatus);
         task.setSupportNeeded(supportNeeded);
         task.setCompletionDate(LocalDateTime.now());
-        TaskHandlerService taskHandlerService = new TaskHandlerService();
+
         taskHandlerService.completeTask(task);
 
         return handlerInput.getResponseBuilder()

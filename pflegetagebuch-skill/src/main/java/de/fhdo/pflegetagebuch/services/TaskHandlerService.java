@@ -49,4 +49,18 @@ public class TaskHandlerService {
         todos = todos.subList(0, 5);
         return todos;
     }
+
+    public Task getTaskByName(String taskName) {
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":val1", new AttributeValue().withS(taskName));
+
+        DynamoDBScanExpression query = new DynamoDBScanExpression()
+                .withFilterExpression("name = :val1")
+                .withExpressionAttributeValues(valueMap)
+                .withLimit(1);
+
+        List<Task> tasks = getClient().scan(Task.class, query);
+        return tasks.isEmpty() ? null : tasks.get(0);
+
+    }
 }
