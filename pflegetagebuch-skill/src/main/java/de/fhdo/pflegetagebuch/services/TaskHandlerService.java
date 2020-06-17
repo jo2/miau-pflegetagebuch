@@ -55,9 +55,13 @@ public class TaskHandlerService {
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":val1", new AttributeValue().withS(taskName));
 
+        Map<String, String> expression = new HashMap<>();
+        expression.put("#n", "name");
+
         DynamoDBScanExpression query = new DynamoDBScanExpression()
-                .withFilterExpression("name = :val1")
+                .withFilterExpression("#n = :val1")
                 .withExpressionAttributeValues(valueMap)
+                .withExpressionAttributeNames(expression)
                 .withLimit(1);
 
         List<Task> tasks = getClient().scan(Task.class, query);

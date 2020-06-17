@@ -28,7 +28,7 @@ public class CompleteTaskHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
-        String taskName = Util.getContentFromSlot("task", helper);
+        String taskName = helper.getSlotValue("task").get();
 
         TaskHandlerService taskHandlerService = new TaskHandlerService();
         Task task = taskHandlerService.getTaskByName(taskName);
