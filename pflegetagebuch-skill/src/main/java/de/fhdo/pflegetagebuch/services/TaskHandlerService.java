@@ -9,10 +9,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import de.fhdo.pflegetagebuch.domain.Task;
 
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TaskHandlerService {
 
@@ -45,7 +42,7 @@ public class TaskHandlerService {
 
     public List<Task> getNextTasks() {
         DynamoDBScanExpression query = new DynamoDBScanExpression();
-        List<Task> todos = getClient().scan(Task.class, query);
+        List<Task> todos = new ArrayList<>(getClient().scan(Task.class, query));
         todos.sort((task, t1) -> {
             if (task.getDueDate() != null && t1.getDueDate() != null) {
                 return task.getDueDate().compareTo(t1.getDueDate());
