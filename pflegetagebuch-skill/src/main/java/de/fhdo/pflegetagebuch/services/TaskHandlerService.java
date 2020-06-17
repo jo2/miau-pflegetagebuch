@@ -45,6 +45,9 @@ public class TaskHandlerService {
         DynamoDBScanExpression query = new DynamoDBScanExpression();
         List<Task> todos = new ArrayList<>(getClient().scan(Task.class, query));
         todos = todos.stream().filter(task -> task.getCompletionDate() == null).collect(Collectors.toList());
+        if (todos.isEmpty()) {
+            return todos;
+        }
         todos.sort((task, t1) -> {
             if (task.getDueDate() != null && t1.getDueDate() != null) {
                 return task.getDueDate().compareTo(t1.getDueDate());
