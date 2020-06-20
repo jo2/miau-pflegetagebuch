@@ -1,6 +1,7 @@
 package de.fhdo.pflegetagebuch.domain;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -63,5 +64,21 @@ public class MealTask extends Task {
                 ", mealType=" + mealType +
                 ", mealDate=" + mealDate +
                 '}';
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        JSONObject object = new JSONObject();
+        object.put("name", this.name);
+        object.put("completionDate", this.completionDate);
+        object.put("supportNeeded", this.supportNeeded);
+        object.put("healthStatus", this.healthStatus);
+        object.put("dueDate", this.dueDate);
+        object.put("priority", this.priority);
+        object.put("meal", this.meal);
+        object.put("amountEaten", this.amountEaten);
+        object.put("mealType", this.mealType);
+        object.put("mealDate", this.mealDate);
+        return object;
     }
 }

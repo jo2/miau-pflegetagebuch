@@ -1,6 +1,8 @@
 package de.fhdo.pflegetagebuch.domain;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -82,5 +84,16 @@ public class Task {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject object = new JSONObject();
+        object.put("name", this.name);
+        object.put("completionDate", this.completionDate);
+        object.put("supportNeeded", this.supportNeeded);
+        object.put("healthStatus", this.healthStatus);
+        object.put("dueDate", this.dueDate);
+        object.put("priority", this.priority);
+        return object;
     }
 }
