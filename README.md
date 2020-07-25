@@ -14,3 +14,6 @@ Das Erstellen, Abfragen und Abhaken von einmaligen und wiederkehrenden Aufgaben 
 
 ### Tagebucheinträge
 Ist eine Aufgabe abgeschlossen, so soll dies in einem Tagebucheintrag festgehalten werden. Hierbei soll nicht nur gespeichert werden, ob die Aufgabe abgeschlossen wurde, sondern beispielsweise auch, wie dabei der Gesundheitszustand des Pflegebedürftigen war oder welcher Grad an Unterstützung benötigt wurde.
+
+## Bezug zu Ambient assisted Living
+Ambient assisted Living bedeutet das Pflegebedürftige durch in der Umgebung eingebettete Systeme unterstützt werden. Im Fall unseres PFlegetagebuchs bezieht sich diese Unterstützung nicht direkt auf den Pflegebedürftigen, sondern primär auf die Menschen, die sich um dessen wohlergehen kümmern. In einer entsprechend mit Amazon Alexa ausgestatteten Umgebung kann das Pflegepersonal den Skill nutzen und wird so bei der Arbeit unterstützt, sodass mehr Zeit für die eigentliche Pflege bleibt.
