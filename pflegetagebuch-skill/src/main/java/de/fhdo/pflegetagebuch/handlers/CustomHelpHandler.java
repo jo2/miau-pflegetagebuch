@@ -19,9 +19,8 @@ public class CustomHelpHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
-        String helpArea = Util.getContentFromSlot("HelpArea", helper);
+        String helpArea = helper.getSlotValue("HelpArea").orElse("general");
 
-        System.out.println(helpArea);
         String help = "";
         switch (helpArea) {
             case "general":
@@ -45,7 +44,7 @@ public class CustomHelpHandler implements RequestHandler {
         }
 
         return handlerInput.getResponseBuilder()
-                .withReprompt("Kann ich sonst noch etwas für Sie erledigen")
+                .withReprompt("")
                 .withSpeech(help + "Kann ich sonst noch etwas für Sie erledigen")
                 .build();
     }
