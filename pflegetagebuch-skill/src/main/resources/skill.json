@@ -163,6 +163,14 @@
             "hilf mir mit {HelpArea}",
             "was kann ich tun"
           ]
+        },
+        {
+          "name": "LastActionIntent",
+          "slots": [],
+          "samples": [
+            "was war meine letzte aktion",
+            "was habe ich als letztes gemacht"
+          ]
         }
       ],
       "types": [

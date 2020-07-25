@@ -14,7 +14,8 @@ public class SimpleAlexaSkillStreamHandler extends SkillStreamHandler {
                 .addRequestHandler(new GetNextTasksHandler())
                 .addRequestHandler(new CustomHelpHandler())
                 .addRequestHandler(new CustomLaunchRequestHandler())
+                .addRequestHandler(new LastActionHandler())
                 .build());
-
+        System.out.println("Config loaded");
     }
 }
