@@ -20,16 +20,11 @@ public class LastActionHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
-        RequestHelper requestHelper = RequestHelper.forHandlerInput(handlerInput);
-
         AttributesManager attributesManager = handlerInput.getAttributesManager();
         Map<String,Object> attributes = attributesManager.getSessionAttributes();
-
-        Optional<String> lastAction = requestHelper.getSlotValue("lastAction");
-        attributes.put("lastAction", lastAction.orElse("Keine Aktion"));
-
+        String lastAction = (String) attributes.getOrDefault("lastAction", "Keine Aktion");
         return handlerInput.getResponseBuilder()
-                .withSpeech("Deine letzte Aktion war: " + lastAction.orElse("Keine Aktion"))
+                .withSpeech("Deine letzte Aktion war: " + lastAction)
                 .withReprompt("Kann ich dir sonst noch weiterhelfen?")
                 .build();
     }
