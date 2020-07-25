@@ -12,6 +12,7 @@ public class SimpleAlexaSkillStreamHandler extends SkillStreamHandler {
                 .addRequestHandler(new CompleteTaskHandler())
                 .addRequestHandler(new CreateTaskHandler())
                 .addRequestHandler(new GetNextTasksHandler())
+                .addRequestHandler(new CustomHelpHandler())
                 .addRequestHandler(new CustomLaunchRequestHandler())
                 .build());
 

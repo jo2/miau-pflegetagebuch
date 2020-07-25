@@ -29,13 +29,6 @@
           "samples": []
         },
         {
-          "name": "BeleidigeMichIntent",
-          "slots": [],
-          "samples": [
-            "beleidige mich"
-          ]
-        },
-        {
           "name": "CompleteTaskIntent",
           "slots": [
             {
@@ -95,19 +88,19 @@
               "type": "mealType"
             },
             {
+              "name": "dish",
+              "type": "AMAZON.SearchQuery",
+              "samples": [
+                "{dish}",
+                "der pflegebedürftige hat {dish} gegessen"
+              ]
+            },
+            {
               "name": "amountEaten",
               "type": "AMAZON.NUMBER",
               "samples": [
                 "der pflegebedürftige hat {amountEaten} gegessen",
                 "{amountEaten}"
-              ]
-            },
-            {
-              "name": "dish",
-              "type": "dishes",
-              "samples": [
-                "{dish}",
-                "der pflegebedürftige hat {dish} gegessen"
               ]
             }
           ],
@@ -115,6 +108,60 @@
             "trage im pflegetagebuch ein {mealType} wurde eingenommen",
             "trage im pflegetagebuch ein essen {mealTime} wurde eingenommen",
             "trage im pflegetagebuch ein essen {mealDate} {mealTime} wurde eingenommen"
+          ]
+        },
+        {
+          "name": "CreateTaskIntent",
+          "slots": [
+            {
+              "name": "task",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "priority",
+              "type": "priority",
+              "samples": [
+                "Mit der Priorität {priority}",
+                "{priority}"
+              ]
+            },
+            {
+              "name": "dueDate",
+              "type": "AMAZON.DATE",
+              "samples": [
+                "Die Aufgabe muss bis zum {dueDate}  erledigt sein",
+                "{dueDate}",
+                "Zum {dueDate}",
+                "Bis zum {dueDate}"
+              ]
+            }
+          ],
+          "samples": [
+            "Erstelle die Aufgabe {task}",
+            "{task} muss noch erledigt werden",
+            "Erstelle Aufgabe {task}",
+            "Das nächste Mal muss {task} erledigt werden"
+          ]
+        },
+        {
+          "name": "GetNextTasksIntent",
+          "slots": [],
+          "samples": [
+            "welche aufgaben stehen als nächstes an",
+            "was ist noch zu tun"
+          ]
+        },
+        {
+          "name": "CustomHelpIntent",
+          "slots": [
+            {
+              "name": "HelpArea",
+              "type": "HelpAreas"
+            }
+          ],
+          "samples": [
+            "hilf mir mit {HelpArea}",
+            "was kann ich tun"
           ]
         }
       ],
@@ -126,7 +173,7 @@
               "name": {
                 "value": "bad",
                 "synonyms": [
-                  "gut"
+                  "schlecht"
                 ]
               }
             },
@@ -142,7 +189,7 @@
               "name": {
                 "value": "good",
                 "synonyms": [
-                  "schlecht"
+                  "gut"
                 ]
               }
             }
@@ -219,6 +266,14 @@
           "values": [
             {
               "name": {
+                "value": "lasagna with cheese",
+                "synonyms": [
+                  "Auflauf mit Käse"
+                ]
+              }
+            },
+            {
+              "name": {
                 "value": "fish",
                 "synonyms": [
                   "Fisch"
@@ -259,6 +314,72 @@
                 "synonyms": [
                   "Brötchen",
                   "Brot"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "priority",
+          "values": [
+            {
+              "name": {
+                "value": "low",
+                "synonyms": [
+                  "gering"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "medium",
+                "synonyms": [
+                  "mittel"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "high",
+                "synonyms": [
+                  "hoch"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "HelpAreas",
+          "values": [
+            {
+              "name": {
+                "value": "general",
+                "synonyms": [
+                  "allgemeines"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "showTasks",
+                "synonyms": [
+                  "Aufgaben anzeigen"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "finishTasks",
+                "synonyms": [
+                  "Aufgaben abschließen"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "createTasks",
+                "synonyms": [
+                  "Aufgaben erstellen"
                 ]
               }
             }
@@ -345,6 +466,15 @@
               "prompts": {}
             },
             {
+              "name": "dish",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.585605568023.1413356327064"
+              }
+            },
+            {
               "name": "amountEaten",
               "type": "AMAZON.NUMBER",
               "confirmationRequired": false,
@@ -352,14 +482,37 @@
               "prompts": {
                 "elicitation": "Elicit.Slot.585605568023.1445160022075"
               }
+            }
+          ]
+        },
+        {
+          "name": "CreateTaskIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "task",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": false,
+              "prompts": {}
             },
             {
-              "name": "dish",
-              "type": "dishes",
+              "name": "priority",
+              "type": "priority",
               "confirmationRequired": false,
               "elicitationRequired": true,
               "prompts": {
-                "elicitation": "Elicit.Slot.585605568023.1413356327064"
+                "elicitation": "Elicit.Slot.1404235153562.73153216198"
+              }
+            },
+            {
+              "name": "dueDate",
+              "type": "AMAZON.DATE",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1404235153562.539588512709"
               }
             }
           ]
@@ -428,6 +581,24 @@
           {
             "type": "PlainText",
             "value": "was hat der pflegebedürftige gegessen?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1404235153562.539588512709",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Bis wann muss die Aufgabe erledigt sein?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1404235153562.73153216198",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Mit welcher Priorität muss die Aufgabe erledigt werden?"
           }
         ]
       }
