@@ -4,6 +4,7 @@ import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.request.RequestHelper;
+import de.fhdo.pflegetagebuch.util.Util;
 
 import java.util.Optional;
 
@@ -18,21 +19,26 @@ public class CustomHelpHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         RequestHelper helper = RequestHelper.forHandlerInput(handlerInput);
-        String helpArea = helper.getSlotValue("helpArea").orElse("none");
+        String helpArea = Util.getContentFromSlot("HelpArea", helper);
 
+        System.out.println(helpArea);
         String help = "";
         switch (helpArea) {
             case "general":
+            case "allgemeines":
                 help = "Dieser Skill ermöglicht dir die Dokumentation von Pflegeaufgaben";
                 break;
             case "showTasks":
+            case "Aufgaben anzeigen":
                 help = "Diese Funktion zeigt dir die nächsten drei Aufgaben, die du zu erledigen hast an";
                 break;
             case "finishTasks":
+            case "Aufgaben abschließen":
                 help = "Diese Funktion lässt dich eine Aufgabe abschließen. Dazu wird der Name der Aufgabe, der Gesundheitsstatus des Pflegebedürftigen und der Grad der gegebenen Hilfe benötigt";
                 help += "Bei Essensaufgaben wird zudem die Art des Essens und die Menge protokolliert.";
                 break;
             case "createTasks":
+            case "Aufgaben erstellen":
                 help = "Diese Funktion lässt dich neue Aufgaben anlegen. Neben dem Namen der Aufgabe kannst du auch eine Priorität und ein Fälligkeitsdatum angeben.";
                 break;
             default:
