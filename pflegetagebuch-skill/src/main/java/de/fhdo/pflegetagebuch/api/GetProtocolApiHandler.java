@@ -2,6 +2,9 @@ package de.fhdo.pflegetagebuch.api;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import de.fhdo.pflegetagebuch.services.TaskHandlerService;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,10 +12,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-
-import de.fhdo.pflegetagebuch.services.TaskHandlerService;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 public class GetProtocolApiHandler implements RequestStreamHandler {
 

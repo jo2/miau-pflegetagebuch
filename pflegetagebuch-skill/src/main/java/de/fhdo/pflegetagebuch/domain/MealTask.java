@@ -1,9 +1,11 @@
 package de.fhdo.pflegetagebuch.domain;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
 import org.json.simple.JSONObject;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @DynamoDBTable(tableName = "Tasks")

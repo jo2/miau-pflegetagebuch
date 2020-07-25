@@ -3,8 +3,6 @@ package de.fhdo.pflegetagebuch.handlers;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
-import com.amazon.ask.model.Slot;
-import com.amazon.ask.model.slu.entityresolution.Resolution;
 import com.amazon.ask.request.RequestHelper;
 import de.fhdo.pflegetagebuch.domain.HealthStatus;
 import de.fhdo.pflegetagebuch.domain.MealTask;
@@ -53,7 +51,6 @@ public class CompleteMealHandler implements RequestHandler {
         mealTask.setMeal(helper.getSlotValue("dish").get());
         mealTask.setMealDate(LocalDateTime.now());
         mealTask.setCompletionDate(LocalDateTime.now());
-        System.out.println(mealTask.toString());
 
         TaskHandlerService taskHandlerService = new TaskHandlerService();
         taskHandlerService.completeTask(mealTask);

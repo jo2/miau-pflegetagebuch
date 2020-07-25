@@ -9,7 +9,10 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import de.fhdo.pflegetagebuch.domain.Task;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TaskHandlerService {
@@ -37,7 +40,6 @@ public class TaskHandlerService {
                 .withExpressionAttributeValues(valueMap);
 
         List<Task> protocol = getClient().scan(Task.class, query);
-        protocol.forEach(System.out::println);
         return protocol;
     }
 

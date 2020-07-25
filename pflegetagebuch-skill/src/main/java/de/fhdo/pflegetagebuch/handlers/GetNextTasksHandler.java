@@ -22,7 +22,6 @@ public class GetNextTasksHandler implements RequestHandler {
         taskHandlerService.getNextTasks().forEach(task -> {
             taskListBuilder.append(task.getName()).append(", ");
         });
-        System.out.println(taskListBuilder.toString());
         return handlerInput.getResponseBuilder()
                 .withSpeech("Folgende Aufgaben sind noch zu erledigen: " + (taskListBuilder.toString().equals("") ? "alles erledigt" : taskListBuilder.toString()))
                 .withReprompt("Folgende Aufgaben sind noch zu erledigen: " + (taskListBuilder.toString().equals("") ? "alles erledigt" : taskListBuilder.toString()))

@@ -1,7 +1,6 @@
 package de.fhdo.pflegetagebuch.domain;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.time.LocalDateTime;

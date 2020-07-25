@@ -5,16 +5,12 @@ import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.request.RequestHelper;
 import de.fhdo.pflegetagebuch.domain.HealthStatus;
-import de.fhdo.pflegetagebuch.domain.Priority;
 import de.fhdo.pflegetagebuch.domain.SupportNeeded;
 import de.fhdo.pflegetagebuch.domain.Task;
 import de.fhdo.pflegetagebuch.services.TaskHandlerService;
 import de.fhdo.pflegetagebuch.util.Util;
 
-import java.text.DateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
