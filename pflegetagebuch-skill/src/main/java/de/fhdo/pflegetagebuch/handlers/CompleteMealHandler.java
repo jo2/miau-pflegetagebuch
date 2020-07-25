@@ -1,5 +1,6 @@
 package de.fhdo.pflegetagebuch.handlers;
 
+import com.amazon.ask.attributes.AttributesManager;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
@@ -13,6 +14,7 @@ import de.fhdo.pflegetagebuch.util.Util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
@@ -54,6 +56,8 @@ public class CompleteMealHandler implements RequestHandler {
 
         TaskHandlerService taskHandlerService = new TaskHandlerService();
         taskHandlerService.completeTask(mealTask);
+
+        Util.saveLastActionInSession("Du hast zuletzt ein Essen eingespeichert.", handlerInput.getAttributesManager());
 
         return handlerInput.getResponseBuilder()
                 .withSpeech("Der Task " + mealTask.getName() + " wurde gespeichert.")

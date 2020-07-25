@@ -43,6 +43,8 @@ public class CompleteTaskHandler implements RequestHandler {
 
         taskHandlerService.completeTask(task);
 
+        Util.saveLastActionInSession("Du hast zuletzt eine Aufgabe als erledigt eingespeichert.", handlerInput.getAttributesManager());
+
         return handlerInput.getResponseBuilder()
                 .withReprompt("")
                 .withSpeech("Kann ich sonst noch etwas für Sie erledigen")

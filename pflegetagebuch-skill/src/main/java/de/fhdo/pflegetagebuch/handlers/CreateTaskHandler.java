@@ -47,6 +47,8 @@ public class CreateTaskHandler implements RequestHandler {
         task.setPriority(priority);
         task.setDueDate(dueDate);
 
+        Util.saveLastActionInSession("Du hast zuletzt eine Aufgabe hinzugefügt.", handlerInput.getAttributesManager());
+
         taskHandlerService.completeTask(task);
         return handlerInput.getResponseBuilder()
                 .withReprompt("")

@@ -4,6 +4,7 @@ import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import de.fhdo.pflegetagebuch.services.TaskHandlerService;
+import de.fhdo.pflegetagebuch.util.Util;
 
 import java.util.Optional;
 
@@ -22,6 +23,9 @@ public class GetNextTasksHandler implements RequestHandler {
         taskHandlerService.getNextTasks().forEach(task -> {
             taskListBuilder.append(task.getName()).append(", ");
         });
+
+        Util.saveLastActionInSession("Du hast zuletzt die noch zu erledigenden Aufgaben abgefragt.", handlerInput.getAttributesManager());
+
         return handlerInput.getResponseBuilder()
                 .withSpeech("Folgende Aufgaben sind noch zu erledigen: " + (taskListBuilder.toString().equals("") ? "alles erledigt" : taskListBuilder.toString()))
                 .withReprompt("Folgende Aufgaben sind noch zu erledigen: " + (taskListBuilder.toString().equals("") ? "alles erledigt" : taskListBuilder.toString()))
