@@ -57,7 +57,9 @@ public class TaskHandlerService {
                 return task.getName().compareToIgnoreCase(t1.getName());
             }
         });
-        todos = todos.subList(0, 5);
+        if (todos.size() > 5) {
+            todos = todos.subList(0, 5);
+        }
         return todos;
     }
 
