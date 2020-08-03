@@ -47,7 +47,7 @@ public class CompleteTaskHandler implements RequestHandler {
 
         return handlerInput.getResponseBuilder()
                 .withReprompt("")
-                .withSpeech("Kann ich sonst noch etwas für Sie erledigen")
+                .withSpeech("Kann ich sonst noch etwas für dich erledigen")
                 .build();
     }
 }

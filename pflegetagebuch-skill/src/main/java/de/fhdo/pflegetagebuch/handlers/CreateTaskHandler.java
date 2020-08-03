@@ -52,7 +52,7 @@ public class CreateTaskHandler implements RequestHandler {
         taskHandlerService.completeTask(task);
         return handlerInput.getResponseBuilder()
                 .withReprompt("")
-                .withSpeech("Kann ich sonst noch etwas für Sie erledigen")
+                .withSpeech("Kann ich sonst noch etwas für dich erledigen")
                 .build();
     }
 }
