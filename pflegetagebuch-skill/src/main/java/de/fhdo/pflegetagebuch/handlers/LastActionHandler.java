@@ -24,8 +24,8 @@ public class LastActionHandler implements RequestHandler {
         Map<String,Object> attributes = attributesManager.getSessionAttributes();
         String lastAction = (String) attributes.getOrDefault("lastAction", "Keine Aktion");
         return handlerInput.getResponseBuilder()
-                .withSpeech("Deine letzte Aktion war: " + lastAction)
-                .withReprompt("Kann ich dir sonst noch weiterhelfen?")
+                .withSpeech("Deine letzte Aktion war: " + lastAction + ". Kann ich dir sonst noch weiterhelfen?")
+                .withReprompt("Deine letzte Aktion war: " + lastAction + ". Kann ich dir sonst noch weiterhelfen?")
                 .build();
     }
 }
